@@ -1,4 +1,3 @@
-
 package br.edu.ifpb.bdnc.projeto.tcc.dao.impl;
 
 import br.edu.ifpb.bdnc.projeto.tcc.dao.interfaces.UsuarioDAO;
@@ -14,8 +13,8 @@ import javax.persistence.Query;
  *
  * @author Edilva
  */
-public class UsuaioDaoImpl implements UsuarioDAO{
-    
+public class UsuaioDaoImpl implements UsuarioDAO {
+
     @Inject
     private EntityManager manager;
 
@@ -80,5 +79,14 @@ public class UsuaioDaoImpl implements UsuarioDAO{
         usuarios = query.getResultList();
         return usuarios;
     }
-    
+
+    @Override
+    public Usuario autenticar(String email, String senha) {
+        Query query = manager.createQuery("SELECT u FROM Usuario u WHERE u.email = :email AND u.senha = :senha");
+        query.setParameter("email", email);
+        query.setParameter("senha", senha);
+        Usuario usuario = (Usuario) query.getSingleResult();
+        return usuario;
+    }
+
 }

@@ -15,4 +15,5 @@ public interface UsuarioDAO {
     boolean atualizar(Usuario usuario);
     Usuario getUsuario(int id);
     List<Usuario> listar();
+    Usuario autenticar(String email, String senha);
 }
