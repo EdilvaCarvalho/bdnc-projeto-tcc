@@ -1,10 +1,12 @@
 
 package br.edu.ifpb.bdnc.projeto.tcc.domain.entidades;
 
+import br.edu.ifpb.bdnc.projeto.tcc.util.ConvertLocalDate;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,10 +24,10 @@ public class Usuario implements Serializable{
     private int id;
     @Column(nullable=false, length=80)
     private String nome;
-    @Column(nullable=false, length=15)
-    private String cpf;
+    @Column(nullable=false)
+    @Convert(converter = ConvertLocalDate.class)
     private LocalDate dataNascimento;
-    @Column(nullable=false, length=80)
+    @Column(nullable=false, length=80, unique = true)
     private String email;
     @Column(nullable=false, length=30)
     private String senha;
@@ -33,18 +35,16 @@ public class Usuario implements Serializable{
     public Usuario() {
     }
 
-    public Usuario(String nome, String cpf, LocalDate dataNascimento, String email, String senha) {
+    public Usuario(String nome, LocalDate dataNascimento, String email, String senha) {
         this.nome = nome;
-        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.senha = senha;
     }
 
-    public Usuario(int id, String nome, String cpf, LocalDate dataNascimento, String email, String senha) {
+    public Usuario(int id, String nome, LocalDate dataNascimento, String email, String senha) {
         this.id = id;
         this.nome = nome;
-        this.cpf = cpf;
         this.dataNascimento = dataNascimento;
         this.email = email;
         this.senha = senha;
@@ -64,14 +64,6 @@ public class Usuario implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
     }
 
     public LocalDate getDataNascimento() {
@@ -100,13 +92,12 @@ public class Usuario implements Serializable{
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 97 * hash + this.id;
-        hash = 97 * hash + Objects.hashCode(this.nome);
-        hash = 97 * hash + Objects.hashCode(this.cpf);
-        hash = 97 * hash + Objects.hashCode(this.dataNascimento);
-        hash = 97 * hash + Objects.hashCode(this.email);
-        hash = 97 * hash + Objects.hashCode(this.senha);
+        int hash = 3;
+        hash = 29 * hash + this.id;
+        hash = 29 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + Objects.hashCode(this.dataNascimento);
+        hash = 29 * hash + Objects.hashCode(this.email);
+        hash = 29 * hash + Objects.hashCode(this.senha);
         return hash;
     }
 
@@ -128,9 +119,6 @@ public class Usuario implements Serializable{
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.cpf, other.cpf)) {
-            return false;
-        }
         if (!Objects.equals(this.email, other.email)) {
             return false;
         }
@@ -145,7 +133,7 @@ public class Usuario implements Serializable{
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento=" + dataNascimento + ", email=" + email + ", senha=" + senha + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", email=" + email + ", senha=" + senha + '}';
     }
     
 }
