@@ -1,12 +1,8 @@
-
 package br.edu.ifpb.bdnc.projeto.tcc.domain.entidades;
 
-import br.edu.ifpb.bdnc.projeto.tcc.util.ConvertLocalDate;
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,35 +13,30 @@ import javax.persistence.Id;
  * @author Edilva
  */
 @Entity
-public class Usuario implements Serializable{
-    
+public class Usuario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "minha_seq")
     private int id;
-    @Column(nullable=false, length=80)
+    @Column(nullable = false, length = 80)
     private String nome;
-    @Column(nullable=false)
-    @Convert(converter = ConvertLocalDate.class)
-    private LocalDate dataNascimento;
-    @Column(nullable=false, length=80, unique = true)
+    @Column(nullable = false, length = 80, unique = true)
     private String email;
-    @Column(nullable=false, length=30)
+    @Column(nullable = false, length = 30)
     private String senha;
 
     public Usuario() {
     }
 
-    public Usuario(String nome, LocalDate dataNascimento, String email, String senha) {
+    public Usuario(String nome, String email, String senha) {
         this.nome = nome;
-        this.dataNascimento = dataNascimento;
         this.email = email;
         this.senha = senha;
     }
 
-    public Usuario(int id, String nome, LocalDate dataNascimento, String email, String senha) {
+    public Usuario(int id, String nome, String email, String senha) {
         this.id = id;
         this.nome = nome;
-        this.dataNascimento = dataNascimento;
         this.email = email;
         this.senha = senha;
     }
@@ -64,14 +55,6 @@ public class Usuario implements Serializable{
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public LocalDate getDataNascimento() {
-        return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public String getEmail() {
@@ -95,7 +78,6 @@ public class Usuario implements Serializable{
         int hash = 3;
         hash = 29 * hash + this.id;
         hash = 29 * hash + Objects.hashCode(this.nome);
-        hash = 29 * hash + Objects.hashCode(this.dataNascimento);
         hash = 29 * hash + Objects.hashCode(this.email);
         hash = 29 * hash + Objects.hashCode(this.senha);
         return hash;
@@ -125,15 +107,12 @@ public class Usuario implements Serializable{
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
-        if (!Objects.equals(this.dataNascimento, other.dataNascimento)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", email=" + email + ", senha=" + senha + '}';
+        return "Usuario{" + "id=" + id + ", nome=" + nome + ", email=" + email + ", senha=" + senha + '}';
     }
-    
+
 }
