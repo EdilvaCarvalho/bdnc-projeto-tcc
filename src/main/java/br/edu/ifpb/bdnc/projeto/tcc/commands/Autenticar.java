@@ -1,6 +1,7 @@
 package br.edu.ifpb.bdnc.projeto.tcc.commands;
 
 import br.edu.ifpb.bdnc.projeto.tcc.domain.entidades.Usuario;
+import br.edu.ifpb.bdnc.projeto.tcc.domain.enuns.Area;
 import br.edu.ifpb.bdnc.projeto.tcc.service.impl.UsuarioServiceImpl;
 import br.edu.ifpb.bdnc.projeto.tcc.service.interfaces.UsuarioService;
 import java.io.IOException;
@@ -36,6 +37,7 @@ public class Autenticar implements Command {
         } else {
             HttpSession sessao = request.getSession();
             sessao.setAttribute("usuario", usuario);
+            sessao.setAttribute("areas", Area.values());
             String nome = usuario.getNome();
             String[] nome2 = nome.trim().split(" ");
             nome = nome2[0];

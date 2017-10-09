@@ -46,7 +46,7 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="#">Cadastrar TCC</a>
+                                <a href="cadastroTCC.jsp">Cadastrar TCC</a>
                             </li>
                             <li>
                                 <a href="#">Pesquisar TCC</a>

@@ -11,8 +11,8 @@ import java.util.List;
 public interface TccDAO {
     
     boolean salvar(TCC tcc);
-    boolean remover(int id);
-    boolean atualizar(TCC tcc);
-    TCC getUsuario(int id);
+    TCC buscaPorAno(int ano);
+    TCC buscaPorAutor(String autor);
+    TCC buscaPorConteudo(String conteudo);
     List<TCC> listar();
 }
