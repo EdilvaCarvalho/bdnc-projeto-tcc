@@ -26,10 +26,6 @@
                         <input type="text" class="form-control" name="nome" id="nome" value="${usuario.nome}" autofocus required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="dataNasc">Data de Nascimento: </label>
-                        <input type="date" class="form-control" name="dataNasc" id="dataNasc" value="${usuario.dataNascimento}" required>
-                    </div>
-                    <div class="form-group col-md-6">
                         <label for="email">Email: </label>
                         <input type="email" class="form-control" name="email" id="email" value="${usuario.email}" required>
                     </div>
@@ -38,6 +34,7 @@
                         <input type="password" class="form-control" name="senha" id="senha" value="${usuario.senha}" required>
                     </div>
                     <div class="form-group col-md-3">
+                        <label for="senha"> </label>
                         <input id="btnCadastrar" type="submit" value="Atualizar" class="btn btn-block btn-primary">
                     </div>
                 </form>
