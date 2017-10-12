@@ -65,11 +65,6 @@ public class AtualizarUsuario implements Command {
             usuario.setNome(nome);
         }
 
-        if (request.getParameter("dataNasc") != null) {
-            LocalDate dataNasc = LocalDate.parse(request.getParameter("dataNasc"));
-            usuario.setDataNascimento(dataNasc);
-        }
-
         if (request.getParameter("email") != null) {
             String email = request.getParameter("email");
             usuario.setEmail(email);
