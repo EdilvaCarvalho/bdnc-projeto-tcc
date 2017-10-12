@@ -11,25 +11,30 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 
 /**
  *
  * @author Edilva
  */
 @Entity
+@SequenceGenerator(name = "minha_seq",
+        sequenceName = "MinhaSuperSequence",
+        allocationSize = 1)
 public class Usuario implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "minha_seq")
+    @Column(name = "id")
     private int id;
-    @Column(nullable=false, length=80)
+    @Column(name = "nome",nullable=false, length=80)
     private String nome;
-    @Column(nullable=false)
+    @Column(name = "dataNasc",nullable=false)
     @Convert(converter = ConvertLocalDate.class)
     private LocalDate dataNascimento;
-    @Column(nullable=false, length=80, unique = true)
+    @Column(name = "email",nullable=false, length=80, unique = true)
     private String email;
-    @Column(nullable=false, length=30)
+    @Column(name= "senha",nullable=false, length=30)
     private String senha;
 
     public Usuario() {

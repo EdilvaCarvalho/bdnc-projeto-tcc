@@ -6,7 +6,6 @@ import br.edu.ifpb.bdnc.projeto.tcc.service.impl.UsuarioServiceImpl;
 import br.edu.ifpb.bdnc.projeto.tcc.service.interfaces.UsuarioService;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;

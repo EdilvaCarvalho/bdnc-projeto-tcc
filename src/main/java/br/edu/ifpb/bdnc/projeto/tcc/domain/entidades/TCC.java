@@ -5,6 +5,7 @@ import br.edu.ifpb.bdnc.projeto.tcc.domain.enuns.Area;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
+import org.bson.Document;
 
 /**
  *
@@ -12,6 +13,7 @@ import java.util.Objects;
  */
 public class TCC implements Serializable{
     
+    private int id;
     private String titulo;
     private String autor;
     private String orientador;
@@ -157,4 +159,23 @@ public class TCC implements Serializable{
         return "TCC{" + "titulo=" + titulo + ", autor=" + autor + ", orientador=" + orientador + ", palavrasChave=" + palavrasChave + ", resumo=" + resumo + ", ano=" + ano + ", area=" + area + ", pdfTcc=" + pdfTcc + '}';
     }
     
+     public Document toDocument() {
+        Document doc = new Document()
+                .append("_id", id)
+                .append("titulo", titulo)
+                .append("autor", autor)
+                .append("ano", ano)
+                .append("area",area.toString())
+                .append("orientador", orientador)
+                .append("palavras-chave", palavrasChave.toString())
+                .append("resumo", resumo)
+                .append("pdf", pdfTcc);
+        return doc;
+    }
+      public TCC fromDocument(Document doc) {
+        id = doc.getInteger("_id");
+        titulo= doc.getString("titulo");
+        area= doc.get("area",Area.class);
+        return this;
+    }
 }
