@@ -5,13 +5,19 @@ import br.edu.ifpb.bdnc.projeto.tcc.domain.entidades.TCC;
 import br.edu.ifpb.bdnc.projeto.tcc.domain.enuns.Area;
 import br.edu.ifpb.bdnc.projeto.tcc.service.impl.TCCServiceImpl;
 import br.edu.ifpb.bdnc.projeto.tcc.service.interfaces.TccService;
+import br.edu.ifpb.bdnc.projeto.tcc.util.LeitorPdf;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import org.apache.tika.exception.TikaException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -27,16 +33,10 @@ public class CadastrarTCC implements Command{
         request.setAttribute("pagina", url);
         
         if(service.salvar(tcc)){
-            HttpSession sessao = request.getSession();
-            sessao.setAttribute("tcc", tcc);
-            String titulo = tcc.getTitulo();
-            String[] nome2 = titulo.trim().split(" ");
-            titulo = nome2[0];
-            sessao.setAttribute("tcc", titulo);
             try {
                 request.getRequestDispatcher("paginaDoUsuario.jsp").forward(request, response);
-            } catch (IOException | ServletException ex) {
-                Logger.getLogger(CadastrarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(CadastrarTCC.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             try {
@@ -68,6 +68,35 @@ public class CadastrarTCC implements Command{
         if (request.getParameter("area") != null) {
             String area = request.getParameter("area");
             tcc.setArea(Area.valueOf(area));
+        }
+        if (request.getParameter("resumo") != null) {
+            String resumo = request.getParameter("resumo");
+            tcc.setResumo(resumo);
+        }
+        if (request.getParameter("pdf") != null) {
+            try {
+                String caminho = request.getParameter("caminho");
+                System.out.println(caminho);
+                LeitorPdf leitor= new LeitorPdf(caminho);
+                String textoPdf= leitor.getText();
+                System.out.println(textoPdf);
+                tcc.setPdfTcc(textoPdf);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CadastrarTCC.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException | SAXException | TikaException ex) {
+                Logger.getLogger(CadastrarTCC.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        if (request.getParameter("ano") != null) {
+            int ano = Integer.parseInt(request.getParameter("ano"));
+            tcc.setAno(ano);
+        }
+        if (request.getParameter("palavraChave") != null) {
+          String [] palavrasChave = request.getParameterValues("palavraChave");
+          List<String> lista = new ArrayList<>();
+          lista.addAll(Arrays.asList(palavrasChave));
+          tcc.setPalavrasChave(lista);
         }
         
         return tcc;

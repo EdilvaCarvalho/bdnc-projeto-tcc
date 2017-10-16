@@ -18,7 +18,6 @@ public class TccDaoImpl implements TccDAO{
     @Override
     public boolean salvar(TCC tcc) {
         com.mongodb.MongoClient client= new com.mongodb.MongoClient("localhost", 27017);
-        
         MongoDatabase database = client.getDatabase("tcc");
         MongoCollection<Document> colecao= database.getCollection("tcc");
         colecao.insertOne(tcc.toDocument());
@@ -31,7 +30,7 @@ public class TccDaoImpl implements TccDAO{
         colecao.find(new Document("id",0))
                 .forEach(printBlock);
         client.close();
-        return false;
+        return true;
     }
 
     @Override
