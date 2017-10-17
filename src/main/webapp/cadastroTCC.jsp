@@ -27,7 +27,7 @@
         </div>
         <div class="container">
             <div class="row">
-                <form method="post" id="cadastroCliente" action="Controller?command=CadastrarTCC" enctype = "multipart/form-data">
+                <form method="post" id="cadastroCliente"  enctype = "multipart/form-data" action="Controller?command=CadastrarTCC" enctype = "multipart/form-data">
                     <div class="form-group col-md-6">
                         <label for="titulo">Título: </label>
                         <input type="text" class="form-control" name="titulo" id="titulo" autofocus required>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="form-group col-md-12">
                         <label for="pdf">PDF do TCC: </label>
-                        <input type="file" class="form-control" name="pdf" id="pdf" required>
+                        <input type="text" class="form-control" name="pdf" id="pdf" required/>
                     </div>
                     <div class="form-group col-md-3">
                         <input id="btnCadastrar" type="submit" value="Cadastrar" class="btn btn-block btn-primary">

@@ -21,22 +21,23 @@ import org.xml.sax.SAXException;
  * @author Edilva
  */
 public class LeitorPdf {
-    private final BodyContentHandler handler;
+
+   private final BodyContentHandler handler;
     private final Metadata metadata;
     private final FileInputStream inputStream;
     private final ParseContext parseContext;
 
-    public LeitorPdf(String path) throws FileNotFoundException {
-        this.handler = new BodyContentHandler(-1);
-        this.metadata = new Metadata();
-        this.inputStream = new FileInputStream(new File(path));
-        this.parseContext = new ParseContext();
+    public LeitorPdf(String path) throws FileNotFoundException{
+        handler = new BodyContentHandler(-1);
+        metadata = new Metadata();
+        inputStream = new FileInputStream(new File(path));
+        parseContext = new ParseContext();
     }
-
-    public String getText() throws IOException, SAXException, TikaException{
-        PDFParser pdfparse = new PDFParser();
-        pdfparse.parse(inputStream, handler, metadata, parseContext);
+    
+    public String getText() throws IOException, SAXException, TikaException, org.xml.sax.SAXException{
+        PDFParser pdfParser = new PDFParser();
+        pdfParser.parse(inputStream, handler, metadata, parseContext);
         return handler.toString();
     }
-   
+      
 }
