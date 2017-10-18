@@ -11,8 +11,10 @@ import java.util.List;
 public interface TccDAO {
     
     boolean salvar(TCC tcc);
-    TCC buscaPorAno(int ano);
-    TCC buscaPorAutor(String autor);
+    boolean salvarNeo4J(TCC tcc);
+    int geradorId();
+    List<TCC> buscaPorAno(int ano);
+    List<TCC> buscaPorAutor(String autor);
     TCC buscaPorConteudo(String conteudo);
     List<TCC> listar();
 }

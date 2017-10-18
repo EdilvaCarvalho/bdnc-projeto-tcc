@@ -15,10 +15,14 @@ import java.util.List;
 public interface TccService {
 
     boolean salvar(TCC tcc);
+    
+    boolean salvarNeo4J(TCC tcc);
+    
+    int geradorId();
 
-    public TCC buscaPorAno(int ano);
+    public List<TCC> buscaPorAno(int ano);
 
-    public TCC buscaPorAutor(String autor);
+    public List<TCC> buscaPorAutor(String autor);
 
     List<TCC> listar();
 

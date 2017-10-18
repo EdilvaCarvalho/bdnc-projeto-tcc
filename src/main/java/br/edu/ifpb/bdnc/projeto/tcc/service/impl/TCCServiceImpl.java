@@ -34,18 +34,28 @@ public class TCCServiceImpl implements TccService{
     }
 
     @Override
-    public TCC buscaPorAno(int ano) {
+    public List<TCC> buscaPorAno(int ano) {
         return dao.buscaPorAno(ano);
     }
 
     @Override
-    public TCC buscaPorAutor(String autor) {
+    public List<TCC> buscaPorAutor(String autor) {
         return dao.buscaPorAutor(autor);
     }
 
     @Override
     public TCC buscaPorConteudo(String conteudo) {
         return dao.buscaPorConteudo(conteudo);
+    }
+
+    @Override
+    public boolean salvarNeo4J(TCC tcc) {
+        return  dao.salvarNeo4J(tcc);
+    }
+
+    @Override
+    public int geradorId() {
+        return dao.geradorId();
     }
 
 }

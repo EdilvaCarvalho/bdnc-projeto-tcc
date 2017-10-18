@@ -49,7 +49,7 @@
                                 <a href="cadastroTCC.jsp">Cadastrar TCC</a>
                             </li>
                             <li>
-                                <a href="#">Pesquisar TCC</a>
+                                <a href="pesquisarTcc.jsp">Pesquisar TCC</a>
                             </li>
                         </ul>
                     </div><!-- /.navbar-collapse -->

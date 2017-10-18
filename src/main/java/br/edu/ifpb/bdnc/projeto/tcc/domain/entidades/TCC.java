@@ -3,6 +3,7 @@ package br.edu.ifpb.bdnc.projeto.tcc.domain.entidades;
 
 import br.edu.ifpb.bdnc.projeto.tcc.domain.enuns.Area;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import org.bson.Document;
@@ -102,6 +103,15 @@ public class TCC implements Serializable{
         this.pdfTcc = pdfTcc;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -168,7 +178,7 @@ public class TCC implements Serializable{
                 .append("ano", ano)
                 .append("area",area.toString())
                 .append("orientador", orientador)
-                .append("palavras-chave", palavrasChave.toString())
+                .append("palavras-chave", palavrasChave)
                 .append("resumo", resumo)
                 .append("pdf", pdfTcc);
         return doc;
@@ -177,6 +187,10 @@ public class TCC implements Serializable{
         id = doc.getInteger("_id");
         titulo= doc.getString("titulo");
         area= doc.get("area",Area.class);
+        ano=doc.getInteger("ano");
+        orientador=doc.getString("orientador");
+        palavrasChave=doc.get("palavrasChave", ArrayList.class);
+        resumo=doc.getString("resumo");
         return this;
     }
 }

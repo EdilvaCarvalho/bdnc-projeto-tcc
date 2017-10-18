@@ -5,9 +5,7 @@ import br.edu.ifpb.bdnc.projeto.tcc.domain.enuns.Area;
 import br.edu.ifpb.bdnc.projeto.tcc.service.impl.TCCServiceImpl;
 import br.edu.ifpb.bdnc.projeto.tcc.service.interfaces.TccService;
 import br.edu.ifpb.bdnc.projeto.tcc.util.LeitorPdf;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
@@ -26,15 +23,16 @@ import org.xml.sax.SAXException;
  */
 public class CadastrarTCC implements Command {
 
+    TccService service = new TCCServiceImpl();
+    
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) {
         try {
             TCC tcc = dadosDoTcc(request);
-            TccService service = new TCCServiceImpl();
             String url = request.getHeader("referer");
             request.setAttribute("pagina", url);
 
-            if (service.salvar(tcc)) {
+            if (service.salvar(tcc) && service.salvarNeo4J(tcc)) {
                 try {
                     request.getRequestDispatcher("paginaDoUsuario.jsp").forward(request, response);
                 } catch (ServletException | IOException ex) {
@@ -101,7 +99,8 @@ public class CadastrarTCC implements Command {
             lista.addAll(Arrays.asList(palavrasChave));
             tcc.setPalavrasChave(lista);
         }
-
+        
+       tcc.setId(service.geradorId()+1);
         return tcc;
     }
 
